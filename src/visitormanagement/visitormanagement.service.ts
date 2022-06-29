@@ -4,6 +4,7 @@ import { Repository } from "typeorm";
 import { VisitorEntity } from "./DataAccess/visitorEntity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { VisitorEntityTransformer } from "./DataAccess/visitorEntityTransformer";
+import { hashSync } from 'bcrypt'
 
 @Injectable()
 export class visitormanagementService {
@@ -23,6 +24,8 @@ export class visitormanagementService {
         if (entity != null) {
             throw new Error(`${visitor.username} is already registered`);
         }
+
+        visitor.password = await hashSync(visitor.password, 8);
 
         let vEntity = VisitorEntityTransformer.dtoToEntity(visitor);
 
