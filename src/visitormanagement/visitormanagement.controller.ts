@@ -1,4 +1,4 @@
-import { Controller, Post, Res, HttpStatus, Body, Get } from "@nestjs/common";
+import { Controller, Post, Res, HttpStatus, Body, Get, Param } from "@nestjs/common";
 import { visitorDTO } from "./dto/visitor.dto";
 import { visitormanagementService } from "./visitormanagement.service";
 
@@ -10,15 +10,15 @@ export class visitormanagementController {
     @Post('/visitor')
     registerVisitor(@Res() res, @Body() visitorDTO: visitorDTO){
         console.log(visitorDTO);
-        this.visitorService.registerVisitor(visitorDTO);
+        let dto = this.visitorService.registerVisitor(visitorDTO);
         return res.status(HttpStatus.OK).json({
             message: 'Registrado'
         });
     }
 
     // Metodo provisional para comprobar que registra usuarios
-    @Get('/visitor/debug/getAll')
-    getVisitors(): visitorDTO[]{
-        return this.visitorService.getVisitors();
+    @Get('/visitor/debug/:username')
+    async getVisitors(@Param('username') username: string): Promise<visitorDTO>{
+        return this.visitorService.findByUsername(username);
     }
 }
