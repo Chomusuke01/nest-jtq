@@ -1,6 +1,5 @@
 import { Module} from "@nestjs/common";
-import { loginService } from "./login.service";
-import { loginController } from "./login.controller";
+import { csrfController } from "./csrf.controller";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VisitorEntity } from "../visitormanagement/DataAccess/visitorEntity";
 
@@ -8,8 +7,7 @@ import { VisitorEntity } from "../visitormanagement/DataAccess/visitorEntity";
     imports: [TypeOrmModule.forFeature(
         [VisitorEntity]
       )],
-    controllers: [loginController],
-    providers: [loginService],
+    controllers: [csrfController],
+    providers: [],
 })
-export class loginModule {}
-
+export class csrfModule {}

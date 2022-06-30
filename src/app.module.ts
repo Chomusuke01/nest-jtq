@@ -3,11 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { VisitormanagementModule } from './visitormanagement/visitormanagement.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { VisitorEntity } from './visitormanagement/DataAccess/visitorEntity'
-
+import { VisitorEntity } from './visitormanagement/DataAccess/visitorEntity';
+import { loginModule } from './login/login.module';
+import { csrfModule } from './csrf/csrf.module';
 
 @Module({
-  imports: [VisitormanagementModule, TypeOrmModule.forRoot(
+  imports: [VisitormanagementModule, loginModule, csrfModule, TypeOrmModule.forRoot(
     {
       type: "mysql",
       host: "localhost",
