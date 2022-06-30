@@ -13,6 +13,7 @@ export class VisitorEntityTransformer {
         dto.acceptedCommercial = visitorEntity.acceptedCommercial;
         dto.acceptedTerms = visitorEntity.acceptedTerms;
         dto.userType = visitorEntity.userType;
+        dto.id = visitorEntity.id;
 
         return dto;
     }

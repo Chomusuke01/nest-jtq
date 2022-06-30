@@ -3,14 +3,13 @@ import { loginDTO } from "./DTO/login.dto";
 import { Repository } from "typeorm";
 import { VisitorEntity } from "../visitormanagement/DataAccess/visitorEntity";
 import { InjectRepository } from "@nestjs/typeorm";
-import { VisitorEntityTransformer } from "../visitormanagement/DataAccess/visitorEntityTransformer";
-import { hashSync, compareSync } from 'bcrypt';
+import { compareSync } from 'bcrypt';
+import { VisitorEntityTransformer } from "src/visitormanagement/DataAccess/visitorEntityTransformer";
 
 @Injectable()
 export class loginService {
 
-    constructor(@InjectRepository(VisitorEntity) private visitorRepository: Repository<VisitorEntity>) {
-    }
+    constructor(@InjectRepository(VisitorEntity) private visitorRepository: Repository<VisitorEntity>) {}
 
     async loginVisitor(login: loginDTO){
         let entity = await this.visitorRepository.findOne({
@@ -19,12 +18,15 @@ export class loginService {
             }
         });
 
-        if (entity != null) {
+        if (entity == null) {
             throw new Error(`${login.username} is not registered`);
         }
 
-        console.log(entity);
-
-        return compareSync(login.password, entity.password);
+        
+        if (compareSync(login.password, entity.password)){
+            return VisitorEntityTransformer.entityToDto(entity);;
+        }
+            
+        return null;
     }
 }
