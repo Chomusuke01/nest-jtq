@@ -17,7 +17,7 @@ export class loginController {
             //return loginDto;
             res.send(loginDto)
         }else{
-            res.status(HttpStatus.NOT_FOUND).json({
+            res.status(HttpStatus.UNAUTHORIZED).json({
                 message: 'El ususario no existe'
             });
         }

@@ -8,12 +8,17 @@ export class visitormanagementController {
     constructor(private visitorService: visitormanagementService){}
 
     @Post('/visitor')
-    registerVisitor(@Res() res, @Body() visitorDTO: visitorDTO){
-        console.log(visitorDTO);
-        let dto = this.visitorService.registerVisitor(visitorDTO);
-        return res.status(HttpStatus.OK).json({
-            message: 'Registrado'
-        });
+    async registerVisitor(@Res() res, @Body() visitorDTO: visitorDTO){
+        let dto = await this.visitorService.registerVisitor(visitorDTO);
+        
+        if (dto != null){
+            res.send(dto);
+        }
+        else{
+            res.status(HttpStatus.CONFLICT).json({
+                message: "El usuario ya existe"
+            });
+        }
     }
 
     // Metodo provisional para comprobar que registra usuarios

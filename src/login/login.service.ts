@@ -19,10 +19,9 @@ export class loginService {
         });
 
         if (entity == null) {
-            throw new Error(`${login.username} is not registered`);
+            return null;
         }
 
-        
         if (compareSync(login.password, entity.password)){
             return VisitorEntityTransformer.entityToDto(entity);;
         }

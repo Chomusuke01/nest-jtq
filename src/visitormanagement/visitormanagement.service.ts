@@ -22,7 +22,7 @@ export class visitormanagementService {
         });
 
         if (entity != null) {
-            throw new Error(`${visitor.username} is already registered`);
+            return null;
         }
 
         visitor.password = await hashSync(visitor.password, 8);
@@ -31,8 +31,7 @@ export class visitormanagementService {
 
         let rpEntity = await this.visitorRepository.save(vEntity);
 
-        let dto = VisitorEntityTransformer.entityToDto(rpEntity);
-        return dto;
+        return  VisitorEntityTransformer.entityToDto(rpEntity);
     }
 
 
