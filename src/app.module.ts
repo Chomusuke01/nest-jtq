@@ -6,9 +6,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { VisitorEntity } from './visitormanagement/DataAccess/visitorEntity';
 import { loginModule } from './login/login.module';
 import { csrfModule } from './csrf/csrf.module';
+import { QueuemanagementModule } from './queuemanagement/queuemanagement.module';
+import { QueueEntity } from './queuemanagement/DataAccess/QueueEntity';
 
 @Module({
-  imports: [VisitormanagementModule, loginModule, csrfModule, TypeOrmModule.forRoot(
+  imports: [VisitormanagementModule, loginModule, csrfModule, QueuemanagementModule, TypeOrmModule.forRoot(
     {
       type: "mysql",
       host: "localhost",
@@ -17,7 +19,8 @@ import { csrfModule } from './csrf/csrf.module';
       password: "password",
       database: "database",                
       entities: [
-          VisitorEntity
+          VisitorEntity,
+          QueueEntity
       ],
       synchronize: true
     }
