@@ -1,5 +1,7 @@
-import { Controller, Post,Body, Delete, Param } from "@nestjs/common";
+import { Controller, Post,Body, Delete, Param, Get, Res } from "@nestjs/common";
 import { accesscodemanagementService } from "./accesscodemanagement.service";
+import { AccessCodeDTO } from "./DTO/accesscode.dto";
+
 
 
 @Controller('accesscodemanagement/v1/accesscode')
@@ -8,18 +10,35 @@ export class accesscodemanagementController{
     constructor(private accessCodeService: accesscodemanagementService){}
 
     @Post('/cto/search')
-    findAccessCodeCtos(@Body() criteria){
-        //console.log(criteria);
-        this.accessCodeService.findAccessCodeCtos(criteria);
+    async findAccessCodeCtos(@Res() res,@Body() criteria){
+        let dto = await this.accessCodeService.findAccessCodeCtos(criteria);
+        let ctos = {content: [dto]};
+        res.send(ctos);
     }
 
-    @Delete('/accesscode/:id')
-    deleteAccessCode(@Param('id') id: string){
-
+    @Delete('/:id/')
+    async deleteAccessCode(@Param('id') id: string){
+        await this.accessCodeService.deleteAccessCode(parseInt(id));
     }
 
-    @Post('/accesscode')
-    saveAccessCode(@Body() accessCode){
+    @Post('/')
+    async saveAccessCode(@Res()res, @Body() accessCode){
+        let dto = await this.accessCodeService.saveAccessCode(accessCode);
+        res.send(dto);
+    }
 
+    @Get('/debug/add')
+    testAdd(){
+        this.accessCodeService.debugAdd();
+    }
+
+    @Get('/debug/get/:id')
+    testGet(@Param('id') id :string){
+        return this.accessCodeService.debugGet(parseInt(id));
+    }
+
+    @Get('/debug/getAll')
+    testGetAll(){
+        this.accessCodeService.debugGetAll();
     }
 }

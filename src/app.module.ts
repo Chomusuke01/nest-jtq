@@ -10,7 +10,7 @@ import { QueuemanagementModule } from './queuemanagement/queuemanagement.module'
 import { QueueEntity } from './queuemanagement/DataAccess/QueueEntity';
 import { accesscodemanagementModule } from './accesscodemanagement/accesscodemanagement.module';
 import { AccessCodeEntity } from './accesscodemanagement/DataAccess/accessCodeEntity';
-import { QueueEntity } from './queuemanagement/DataAccess/QueueEntity';
+
 
 @Module({
   imports: [accesscodemanagementModule, QueuemanagementModule, VisitormanagementModule, loginModule, csrfModule, TypeOrmModule.forRoot(
@@ -23,13 +23,8 @@ import { QueueEntity } from './queuemanagement/DataAccess/QueueEntity';
       database: "database",                
       entities: [
           VisitorEntity,
-<<<<<<< HEAD
           AccessCodeEntity,
           QueueEntity
-=======
-          QueueEntity,
-          AccessCodeEntity
->>>>>>> 54defbb7dcc61d6a31e4abc2986204989948170e
       ],
       synchronize: true
     }

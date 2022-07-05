@@ -10,6 +10,7 @@ export class QueueDTO implements IQueue{
     minAttentionTime:number;
     active:boolean;
     customers:number;
+    id: number;
 
     getName(): string {
         return this.name;

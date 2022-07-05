@@ -13,6 +13,7 @@ export class QueueTransformer {
         dto.minAttentionTime = queueEntity.minAttentionTime;
         dto.active = queueEntity.active;
         dto.customers = queueEntity.customers;
+        dto.id = queueEntity.id;
 
         return dto;
     }

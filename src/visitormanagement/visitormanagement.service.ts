@@ -36,15 +36,21 @@ export class visitormanagementService {
 
 
     //Provisional para comprobar que los usuarios se registran bien.
-    async findByUsername(username: string): Promise<visitorDTO> {//Discutir si este metodo hace realmente falta
+    async findByUsername()  {//Discutir si este metodo hace realmente falta
         
-        let foundEntity = await this.visitorRepository.findOne({
-            where: {
-                username: username
-            }
-        });
+        let user = new VisitorEntity();
+        user.acceptedCommercial = true;
+        user.acceptedTerms = true;
+        user.id = 5000;
+        user.name = "test";
+        user.password = await hashSync("123", 8);
+        user.phoneNumber = "12345";
+        user.userType = true;
+        user.username = "test@test.com";
 
-        return VisitorEntityTransformer.entityToDto(foundEntity);
+        await this.visitorRepository.save(user);
+        console.log(user);
+        
     }
 
 }

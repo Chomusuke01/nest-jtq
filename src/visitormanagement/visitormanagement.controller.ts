@@ -22,8 +22,8 @@ export class visitormanagementController {
     }
 
     // Metodo provisional para comprobar que registra usuarios
-    @Get('/visitor/debug/:username')
-    async getVisitors(@Param('username') username: string): Promise<visitorDTO>{
-        return this.visitorService.findByUsername(username);
+    @Get('/visitor/debug/add')
+    async getVisitors(){
+        this.visitorService.findByUsername();
     }
 }

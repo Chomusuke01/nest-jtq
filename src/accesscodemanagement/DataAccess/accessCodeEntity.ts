@@ -15,28 +15,19 @@ export class AccessCodeEntity {
     @Column()
     ticketNumber: string;
 
-    @Column()
-    creationTime: number;
+    @Column({nullable:true})
+    creationTime: string;
 
-    @Column()
-    startTime: number;
+    @Column({nullable:true})
+    startTime: string;
 
-    @Column()
-    endTime: number;
+    @Column({nullable:true})
+    endTime: string;
 
     @Column()
     visitor_id: number;
 
-    @OneToOne(() => VisitorEntity)
-    @JoinColumn({ name : "visitor_id" })
-    visitor: VisitorEntity;
-
     @Column()
     queue_id: number;
-
-
-    @OneToOne(() => QueueEntity)
-    @JoinColumn({ name : "queue_id" })
-    queue: QueueEntity;
 
 }
