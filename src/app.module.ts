@@ -8,6 +8,7 @@ import { loginModule } from './login/login.module';
 import { csrfModule } from './csrf/csrf.module';
 import { accesscodemanagementModule } from './accesscodemanagement/accesscodemanagement.module';
 import { AccessCodeEntity } from './accesscodemanagement/DataAccess/accessCodeEntity';
+import { QueueEntity } from './queuemanagement/DataAccess/QueueEntity';
 
 @Module({
   imports: [accesscodemanagementModule,VisitormanagementModule, loginModule, csrfModule, TypeOrmModule.forRoot(
@@ -20,7 +21,8 @@ import { AccessCodeEntity } from './accesscodemanagement/DataAccess/accessCodeEn
       database: "database",                
       entities: [
           VisitorEntity,
-          AccessCodeEntity
+          AccessCodeEntity,
+          QueueEntity
       ],
       synchronize: true
     }

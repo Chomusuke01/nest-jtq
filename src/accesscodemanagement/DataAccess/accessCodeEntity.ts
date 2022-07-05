@@ -1,6 +1,8 @@
 import { Min, Max } from "class-validator";
 import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { VisitorEntity } from "src/visitormanagement/DataAccess/visitorEntity";
+import { QueueEntity } from "src/queuemanagement/DataAccess/QueueEntity";
+
 
 @Entity("accessCode")
 export class AccessCodeEntity {
@@ -31,5 +33,10 @@ export class AccessCodeEntity {
 
     @Column()
     queue_id: number;
+
+
+    @OneToOne(() => QueueEntity)
+    @JoinColumn({ name : "queue_id" })
+    queue: QueueEntity;
 
 }
