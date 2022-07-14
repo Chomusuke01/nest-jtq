@@ -13,7 +13,7 @@ async function bootstrap() {
   });
 
   app.use(cookieParser());
-  app.use(csurf({cookie: true, ignoreMethods: ['POST'], ignoreRoutes: ['/csrf/v1/token']}));
+  app.use(csurf({cookie: true, ignoreRoutes: ['/csrf/v1/token','/login','visitormanagement/v1/visitor']}));
   //app.use(csurf({ cookie: { ignoreRoutes: 'login' } }));
   await app.listen(3000);
 }

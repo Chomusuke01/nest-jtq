@@ -86,14 +86,7 @@ export class accesscodemanagementService{
             .orderBy({'accesscode.ticketNumber': 'DESC'})
             .getMany();
 
-        let ticketNumber = " ";
-        if (list == undefined){
-            ticketNumber = "Q000";
-        }else{
-            ticketNumber = list.ticketNumber;
-        }
-        
-        entityAC.ticketNumber = this.generateTicketNumber(ticketNumber);
+        entityAC.ticketNumber = this.generateTicketNumber(list);
         entityAC.creationTime = Date.now().toString();
         entityAC.startTime = Date.now().toString();
         entityAC.endTime = null;
@@ -116,20 +109,28 @@ export class accesscodemanagementService{
         await this.accessCodeRepository.remove(entity);
     }
 
-    private  generateTicketNumber(ticket:string): string{
-        
-        let num: number = parseInt(ticket.split('Q')[1]) + 1;
-        if (num < 10){
-            ticket = "Q00" + num.toString();
-        }
-        else if (num < 100){
-            ticket = "Q0" + num.toString();
-        }
-        else{
-            ticket = "Q" + num.toString();
+    private  generateTicketNumber(entity: AccessCodeEntity): string{
+
+        let ticketNumber = " ";
+        if (entity == undefined){
+            ticketNumber = "Q001";
+            return ticketNumber;
         }
 
-        return ticket;
+        ticketNumber = entity.ticketNumber;
+
+        let num: number = parseInt(ticketNumber.split('Q')[1]) + 1;
+        if (num < 10){
+            ticketNumber = "Q00" + num.toString();
+        }
+        else if (num < 100){
+            ticketNumber = "Q0" + num.toString();
+        }
+        else{
+            ticketNumber = "Q" + num.toString();
+        }
+
+        return ticketNumber;
     }
 
     async debugAdd(){
